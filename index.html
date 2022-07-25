@@ -15,7 +15,17 @@
 	<link rel="apple-touch-icon" href="/img/icons/icon-180x180.png">
 	<meta name="theme-color" content="#293821" />
 	<meta name="description" content="Ceci est une démo de PWA">
-
+    <script>
+		// Register service worker.
+		if ('serviceWorker' in navigator) {
+			window.addEventListener('load', () => {
+				navigator.serviceWorker.register('service-worker.js')
+						.then((reg) => {
+							console.log('Notre service worker est chargé !', reg);
+						});
+			});
+		}
+	</script>
 </head>
 <body>
 
