@@ -1,7 +1,7 @@
-//Update cache names any time any of the cached files change.
+//Il faut mettre à jour le nom de la cache quand on push une modification
 const CACHE_NAME = 'static-cache-v5';
 
-//Add list of files to cache here.
+//Liste des fichiers à mettre en cache
 const FILES_TO_CACHE = [
     'offline.html',
     'index.html'
@@ -9,10 +9,10 @@ const FILES_TO_CACHE = [
 
 self.addEventListener('install', (evt) => {
     console.log('[ServiceWorker] Install');
-    // Precache static resources here.
+    // Mise en cache
     evt.waitUntil(
         caches.open(CACHE_NAME).then((cache) => {
-            console.log('[ServiceWorker] Pre-caching offline page');
+            console.log('[ServiceWorker] Mise en cache des fichiers');
             return cache.addAll(FILES_TO_CACHE);
         })
     );
@@ -21,7 +21,7 @@ self.addEventListener('install', (evt) => {
 
 self.addEventListener('activate', (evt) => {
     console.log('[ServiceWorker] Activate');
-    //Remove previous cached data from disk.
+    //Suppression de la vielle cache
     evt.waitUntil(
         caches.keys().then((keyList) => {
             return Promise.all(keyList.map((key) => {
@@ -38,7 +38,7 @@ self.addEventListener('activate', (evt) => {
 
 self.addEventListener('fetch', (evt) => {
     //console.log('[ServiceWorker] Fetch', evt.request.url);
-    //Add fetch event handler here.
+    //Gestion de l'évènement fetch
     if (evt.request.mode !== 'navigate') {
     // Not a page navigation, bail.
         return;
@@ -48,7 +48,7 @@ self.addEventListener('fetch', (evt) => {
             .catch(() => {
                 return caches.open(CACHE_NAME)
                     .then((cache) => {
-                        return cache.match('offline.html' );
+                        return cache.match('offline.html');
                     });
             })
     );
