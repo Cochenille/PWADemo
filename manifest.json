@@ -27,7 +27,7 @@
        "src": "/PWADemo/img/icons/screenshots.png",
         "sizes": "1914x878",
         "type": "image/png",
-        "form_factor": "wide",
+        "form_factor": "narrow",
         "label": "Point n Click screenshots"
       }
   ],
