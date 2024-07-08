@@ -16,12 +16,12 @@
 	<meta name="theme-color" content="#293821" />
 	<meta name="description" content="Ceci est une démo de PWA">
 	<script>
-	// Register service worker.
+	// Charger le service worker.
 	if ('serviceWorker' in navigator) {
 		window.addEventListener('load', () => {
 			navigator.serviceWorker.register('service-worker.js')
 				.then((reg) => {
-				console.log('Service worker registered.', reg);
+				console.log('Service worker en marche !', reg);
 				});
 		});
 	}

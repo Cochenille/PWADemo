@@ -1,4 +1,4 @@
-//Il faut mettre à jour le nom de la cache quand on push une modification
+//IMPORTANT : Il faut mettre à jour le nom de la cache quand on push une modification
 const CACHE_NAME = 'static-cache-v5';
 
 //Liste des fichiers à mettre en cache
@@ -21,7 +21,7 @@ self.addEventListener('install', (evt) => {
 
 self.addEventListener('activate', (evt) => {
     console.log('[ServiceWorker] Activate');
-    //Suppression de la vielle cache
+    //Suppression de la vielle cache si son nom est différent
     evt.waitUntil(
         caches.keys().then((keyList) => {
             return Promise.all(keyList.map((key) => {
@@ -38,15 +38,15 @@ self.addEventListener('activate', (evt) => {
 
 self.addEventListener('fetch', (evt) => {
     //console.log('[ServiceWorker] Fetch', evt.request.url);
-    //Gestion de l'évènement fetch
+    //Gestion de l'évènement fetch (accès à une ressource)
     if (evt.request.mode !== 'navigate') {
     // Not a page navigation, bail.
         return;
     }
     evt.respondWith(
-        fetch(evt.request)
+        fetch(evt.request) //On tente de récupérer la ressource
             .catch(() => {
-                return caches.open(CACHE_NAME)
+                return caches.open(CACHE_NAME) //Si échec, on renvoie la page offline
                     .then((cache) => {
                         return cache.match('offline.html');
                     });
