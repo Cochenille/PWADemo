@@ -1,10 +1,9 @@
 //IMPORTANT : Il faut mettre à jour le nom de la cache quand on push une modification
-const CACHE_NAME = 'static-cache-v2';
+const CACHE_NAME = 'static-cache-v3';
 
 //Liste des fichiers à mettre en cache
 const FILES_TO_CACHE = [
-    'offline.html',
-    'index.html'
+    'offline.html'
 ];
 
 self.addEventListener('install', (evt) => {
@@ -38,7 +37,7 @@ self.addEventListener('activate', (evt) => {
 });
 
 self.addEventListener('fetch', (evt) => {
-    //console.log('[ServiceWorker] Fetch', evt.request.url);
+    console.log('[ServiceWorker] Fetch', evt.request.url);
     //Gestion de l'évènement fetch (accès à une ressource)
     if (evt.request.mode !== 'navigate') {
     // Not a page navigation, bail.
