@@ -1,5 +1,5 @@
 //IMPORTANT : Il faut mettre à jour le nom de la cache quand on push une modification
-const CACHE_NAME = 'static-cache-v5';
+const CACHE_NAME = 'static-cache-v2';
 
 //Liste des fichiers à mettre en cache
 const FILES_TO_CACHE = [
@@ -21,6 +21,7 @@ self.addEventListener('install', (evt) => {
 
 self.addEventListener('activate', (evt) => {
     console.log('[ServiceWorker] Activate');
+
     //Suppression de la vielle cache si son nom est différent
     evt.waitUntil(
         caches.keys().then((keyList) => {

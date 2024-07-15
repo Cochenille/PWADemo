@@ -8,20 +8,14 @@
 	<link rel="stylesheet" href="css/bootstrap.css">
 	<link rel="stylesheet" href="css/style.css">
 	<link rel="manifest" href="manifest.json">
-	<!-- POUR SAFARI !!! -->
-	<meta name="apple-mobile-web-app-capable" content="yes">
-	<meta name="apple-mobile-web-app-status-bar-style" content="#ffffff">
-	<meta name="apple-mobile-web-app-title" content="PointnClick">
-	<link rel="apple-touch-icon" href="/img/icons/icon-180x180.png">
-	<meta name="theme-color" content="#293821" />
-	<meta name="description" content="Ceci est une démo de PWA">
+
 	<script>
 	// Charger le service worker.
 	if ('serviceWorker' in navigator) {
 		window.addEventListener('load', () => {
 			navigator.serviceWorker.register('service-worker.js')
 				.then((reg) => {
-				console.log('Service worker en marche !', reg);
+					console.log('Service worker en marche !', reg);
 				});
 		});
 	}
