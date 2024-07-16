@@ -3,9 +3,9 @@ const installButton = document.getElementById('btnInstall');
 
 installButton.addEventListener('click', installPWA);
 
-window.addEventListener('beforeinstallprompt', saveBeforeInstallPromptEvent);
+window.addEventListener('beforeinstallprompt', afficherBouttonInstall);
 
-function saveBeforeInstallPromptEvent(evt) {
+function afficherBouttonInstall(evt) {
     //CODELAB: Add code to save event & show the install button
     deferredInstallPrompt = evt;
     installButton.removeAttribute('hidden');
@@ -24,16 +24,11 @@ function installPWA(evt) {
     deferredInstallPrompt.userChoice
         .then((choice) => {
             if (choice.outcome === 'accepted') {
-                console.log("L'usager a installé la PWA via les mon boutton", choice);
+                console.log("L'usager a installé la PWA via mon boutton", choice);
             } else {
                 console.log("L'usager a refusé d'installer la PWA", choice);
             }
             deferredInstallPrompt = null;
         });
 
-}
-
-
-function logAppInstalled(evt) {
-    console.log("L'usager a installé la PWA via les ... de chrome. ");
 }

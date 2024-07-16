@@ -19,8 +19,7 @@ self.addEventListener('install', (evt) => {
 });
 
 self.addEventListener('activate', (evt) => {
-    console.log('[ServiceWorker] Activate');
-
+    
     //Suppression de la vielle cache si son nom est différent
     evt.waitUntil(
         caches.keys().then((keyList) => {
@@ -34,6 +33,7 @@ self.addEventListener('activate', (evt) => {
         })
     );
     self.clients.claim();
+    console.log('[ServiceWorker] Activate');
 });
 
 self.addEventListener('fetch', (evt) => {
