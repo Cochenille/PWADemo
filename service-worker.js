@@ -1,5 +1,5 @@
 //IMPORTANT : Il faut mettre à jour le nom de la cache quand on push une modification
-const CACHE_NAME = 'static-cache-v3';
+const CACHE_NAME = 'static-cache-v5';
 
 //Liste des fichiers à mettre en cache
 const FILES_TO_CACHE = [
@@ -19,7 +19,6 @@ self.addEventListener('install', (evt) => {
 });
 
 self.addEventListener('activate', (evt) => {
-    
     //Suppression de la vielle cache si son nom est différent
     evt.waitUntil(
         caches.keys().then((keyList) => {
@@ -40,16 +39,30 @@ self.addEventListener('fetch', (evt) => {
     console.log('[ServiceWorker] Fetch', evt.request.url);
     //Gestion de l'évènement fetch (accès à une ressource)
     if (evt.request.mode !== 'navigate') {
-    // Not a page navigation, bail.
         return;
     }
-    evt.respondWith(
-        fetch(evt.request) //On tente de récupérer la ressource
-            .catch(() => {
-                return caches.open(CACHE_NAME) //Si échec, on renvoie la page offline
-                    .then((cache) => {
-                        return cache.match('offline.html');
-                    });
-            })
-    );
+    /* Si internet coupe load la cache: */
+self.addEventListener("fetch", (evt) => {
+	console.log("[ServiceWorker] Fetch", evt.request.url);
+	//Add fetch event handler here.
+	if (evt.request.mode !== "navigate") {
+		// Not a page navigation, bail.
+		return;
+	}
+	evt.respondWith(
+		fetch(evt.request)
+			.then((response) => {
+				// Si la réponse est OK, on la retourne
+				if (response.ok) {
+					return response;
+				}
+				// Sinon, on retourne la page offline
+				return caches.open(CACHE_NAME).then((cache) => cache.match("offline.html"));
+			})
+			.catch(() => {
+				console.log("[ServiceWorker] fetch().catch() open cache");
+				return caches.open(CACHE_NAME).then((cache) => cache.match("offline.html"));
+			})
+	);
+});
 });
