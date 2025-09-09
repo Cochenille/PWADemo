@@ -35,18 +35,13 @@ self.addEventListener('activate', (evt) => {
     console.log('[ServiceWorker] Activate');
 });
 
-self.addEventListener('fetch', (evt) => {
-    console.log('[ServiceWorker] Fetch', evt.request.url);
-    //Gestion de l'évènement fetch (accès à une ressource)
-    if (evt.request.mode !== 'navigate') {
-        return;
-    }
-    /* Si internet coupe load la cache: */
+
+/* Si internet coupe, on load la cache: */
 self.addEventListener("fetch", (evt) => {
 	console.log("[ServiceWorker] Fetch", evt.request.url);
-	//Add fetch event handler here.
+
 	if (evt.request.mode !== "navigate") {
-		// Not a page navigation, bail.
+		// pas une navigation, on ne s'en occupe pas
 		return;
 	}
 	evt.respondWith(
@@ -65,4 +60,4 @@ self.addEventListener("fetch", (evt) => {
 			})
 	);
 });
-});
+
