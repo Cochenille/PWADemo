@@ -1,5 +1,5 @@
 //IMPORTANT : Il faut mettre à jour le nom de la cache quand on push une modification
-const CACHE_NAME = 'static-cache-v6';
+const CACHE_NAME = 'static-cache-v7';
 
 //Liste des fichiers à mettre en cache
 const FILES_TO_CACHE = [
